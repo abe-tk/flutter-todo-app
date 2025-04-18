@@ -23,15 +23,48 @@ class TodoListPage extends StatelessWidget {
       );
     });
 
+    Future<void> showSortBottomSheet() async {
+      await showModalBottomSheet<void>(
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: 240,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Gap(24),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Text('並べ替え'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.check),
+                  title: const Text('指定した順序'),
+                  onTap: () {
+                    // TODO(takuro): ソート処理
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.check),
+                  title: const Text('期限日'),
+                  onTap: () {
+                    // TODO(takuro): ソート処理
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Todo App'),
         actions: [
           IconButton(
             icon: const Icon(Icons.sort),
-            onPressed: () {
-              // TODO(takuro): ソート処理
-            },
+            onPressed: showSortBottomSheet,
           ),
         ],
       ),
