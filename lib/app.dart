@@ -12,6 +12,12 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       theme: lightTheme(),
+      builder: (context, child) {
+        return GestureDetector(
+          onTap: () => primaryFocus?.unfocus(),
+          child: child,
+        );
+      },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
