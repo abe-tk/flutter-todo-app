@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'config/theme.dart';
-import 'presentation/page/todo/todo_list_page.dart';
+import 'routing/go_router.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(theme: lightTheme(), home: const TodoListPage());
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      theme: lightTheme(),
+      routerConfig: ref.watch(goRouterProvider),
+    );
   }
 }
