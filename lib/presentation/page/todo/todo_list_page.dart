@@ -5,6 +5,7 @@ import '../../../feature/todo/domain/entity/todo_entity.dart';
 import '../../../l10n/l10n.dart';
 import 'widget/todo_add_bottom_sheet.dart';
 import 'widget/todo_list_item.dart';
+import 'widget/todo_sort_botttom_sheet.dart';
 
 class TodoListPage extends StatelessWidget {
   const TodoListPage({super.key});
@@ -30,48 +31,13 @@ class TodoListPage extends StatelessWidget {
       );
     });
 
-    Future<void> showSortBottomSheet() async {
-      await showModalBottomSheet<void>(
-        context: context,
-        builder: (context) {
-          return SizedBox(
-            height: 240,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Gap(24),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Text(l10n.sortButtomSheetTitle),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.check),
-                  title: Text(l10n.sortButtomSheetItemSpecifiedOorder),
-                  onTap: () {
-                    // TODO(takuro): ソート処理
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.check),
-                  title: Text(l10n.sortButtomSheetItemDueDate),
-                  onTap: () {
-                    // TODO(takuro): ソート処理
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.todoListPageAppBarTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.sort),
-            onPressed: showSortBottomSheet,
+            onPressed: () => TodoSortBottomSheet.show(context: context),
           ),
         ],
       ),
