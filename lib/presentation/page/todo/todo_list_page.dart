@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 
 import '../../../feature/todo/domain/entity/todo_entity.dart';
 import '../../../l10n/l10n.dart';
+import 'widget/todo_add_bottom_sheet.dart';
 import 'widget/todo_list_item.dart';
 
 class TodoListPage extends StatelessWidget {
@@ -93,9 +94,7 @@ class TodoListPage extends StatelessWidget {
         footer: const Gap(80),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO(takuro): タスク追加処理
-        },
+        onPressed: () => TodoAddBottomSheet.show(context: context),
         child: const Icon(Icons.add),
       ),
     );
