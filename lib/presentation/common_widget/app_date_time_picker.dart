@@ -20,7 +20,6 @@ class AppDatePickerForm extends StatelessWidget {
     Future<void> datePick() async {
       final date = await showDatePicker(
         context: context,
-        locale: const Locale('ja'),
         firstDate: DateTime(2020),
         lastDate: DateTime(2030, 12, 31),
       );
