@@ -1,0 +1,19 @@
+{
+    "@@locale": "en",
+    "todoListPageAppBarTitle": "Flutter Todo App",
+    "sortButtomSheetTitle": "Sort",
+    "sortButtomSheetItemSpecifiedOorder": "Specified order",
+    "sortButtomSheetItemDueDate": "Due date",
+    "todoTitleFormHintText": "Enter title",
+    "validatorTodoTitle": "{validateResult,select, valid{}empty{Please enter.}other{}}",
+    "@validatorTodoTitle": {
+        "type": "text",
+        "placeholders": {
+            "validateResult": {}
+        }
+    },
+    "todoDescriptionFormHintText": "Enter Detail",
+    "todoDueDateFormIsEmptyText": "Enter due date",
+    "saveBtnText": "Save",
+    "completeBtnText": "Complete"
+}

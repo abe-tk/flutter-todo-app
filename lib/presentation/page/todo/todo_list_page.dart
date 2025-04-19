@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../feature/todo/domain/entity/todo_entity.dart';
+import '../../../l10n/l10n.dart';
 import 'widget/todo_list_item.dart';
 
 class TodoListPage extends StatelessWidget {
@@ -12,6 +13,8 @@ class TodoListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
+
     // TODO(takuro): firestoreから取得するデータに置き換える
     final todoList = List.generate(10, (int index) {
       return TodoEntity(
@@ -36,20 +39,20 @@ class TodoListPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Gap(24),
-                const Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: Text('並べ替え'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(l10n.sortButtomSheetTitle),
                 ),
                 ListTile(
                   leading: const Icon(Icons.check),
-                  title: const Text('指定した順序'),
+                  title: Text(l10n.sortButtomSheetItemSpecifiedOorder),
                   onTap: () {
                     // TODO(takuro): ソート処理
                   },
                 ),
                 ListTile(
                   leading: const Icon(Icons.check),
-                  title: const Text('期限日'),
+                  title: Text(l10n.sortButtomSheetItemDueDate),
                   onTap: () {
                     // TODO(takuro): ソート処理
                   },
@@ -63,7 +66,7 @@ class TodoListPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Todo App'),
+        title: Text(l10n.todoListPageAppBarTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.sort),

@@ -1,0 +1,3 @@
+template-arb-file: app_en.arb
+output-class: L10n
+nullable-getter: false

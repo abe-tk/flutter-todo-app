@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 extension DateTimeFormatter on DateTime {
   /// M月d日(EEE)
   String MMMEd() {
-    final formatter = DateFormat.MMMEd('ja');
+    final formatter = DateFormat.MMMEd();
     final formatted = formatter.format(this);
     return formatted;
   }

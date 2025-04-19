@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import 'config/theme.dart';
+import 'l10n/l10n.dart';
 import 'routing/go_router.dart';
 
 class MyApp extends ConsumerWidget {
@@ -18,12 +19,13 @@ class MyApp extends ConsumerWidget {
           child: child,
         );
       },
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('ja')],
+      localizationsDelegates: L10n.localizationsDelegates,
+      supportedLocales: L10n.supportedLocales,
+      localeListResolutionCallback: (locales, supportedLocales) {
+        final locale = basicLocaleListResolution(locales, supportedLocales);
+        Intl.defaultLocale = locale.toString();
+        return locale;
+      },
       routerConfig: ref.watch(goRouterProvider),
     );
   }
