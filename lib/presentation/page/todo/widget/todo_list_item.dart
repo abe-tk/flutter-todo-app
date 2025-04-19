@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../feature/todo/domain/entity/todo_entity.dart';
+import '../../../../routing/go_router.dart';
 import '../../../../util/formatter/date_time_formatter.dart';
 
 class TodoListItem extends StatelessWidget {
-  const TodoListItem({super.key, required this.todoListItem});
+  const TodoListItem({super.key, required this.todo});
 
-  final TodoEntity todoListItem;
+  final TodoEntity todo;
 
   @override
   Widget build(BuildContext context) {
@@ -14,22 +15,22 @@ class TodoListItem extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return ListTile(
       titleAlignment: ListTileTitleAlignment.top,
-      title: Text(todoListItem.title),
+      title: Text(todo.title),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (todoListItem.description != null)
+          if (todo.description != null)
             Text(
-              todoListItem.description!,
+              todo.description!,
               style: textTheme.bodyMedium!.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-          if (todoListItem.dueDate != null)
+          if (todo.dueDate != null)
             Text(
-              todoListItem.dueDate!.MMMEd(),
+              todo.dueDate!.MMMEd(),
               style: textTheme.bodyMedium!.copyWith(
                 color: colorScheme.onSurface,
               ),
@@ -37,13 +38,13 @@ class TodoListItem extends StatelessWidget {
         ],
       ),
       leading: Checkbox(
-        value: todoListItem.isCompleted,
+        value: todo.isCompleted,
         onChanged: (value) {
           // TODO(takuro): タスク完了処理
         },
       ),
       onTap: () {
-        // TODO(takuro): タスク編集画面への遷移
+        TodoEditPageRoute($extra: todo).go(context);
       },
     );
   }

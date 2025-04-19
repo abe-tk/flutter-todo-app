@@ -13,8 +13,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.21.2
+  flutter_localizations:
+    sdk: flutter
   freezed_annotation:
   gap:
+  go_router: 15.0.0
+  go_router_builder:
   hooks_riverpod:
   intl:
   json_annotation: ^4.9.0

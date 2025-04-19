@@ -7,6 +7,9 @@ import 'widget/todo_list_item.dart';
 class TodoListPage extends StatelessWidget {
   const TodoListPage({super.key});
 
+  static const name = 'todo_list';
+  static const path = '/';
+
   @override
   Widget build(BuildContext context) {
     // TODO(takuro): firestoreから取得するデータに置き換える
@@ -73,7 +76,7 @@ class TodoListPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return Material(
             key: Key('$index'),
-            child: TodoListItem(todoListItem: todoList[index]),
+            child: TodoListItem(todo: todoList[index]),
           );
         },
         onReorder: (int oldIndex, int newIndex) {
