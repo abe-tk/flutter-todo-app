@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../util/formatter/date_time_formatter.dart';
+import '../../l10n/l10n.dart';
 
 class AppDatePickerForm extends StatelessWidget {
   const AppDatePickerForm({
@@ -17,6 +18,8 @@ class AppDatePickerForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = L10n.of(context);
+
     Future<void> datePick() async {
       final date = await showDatePicker(
         context: context,
@@ -50,9 +53,9 @@ class AppDatePickerForm extends StatelessWidget {
                       ],
                     ),
                   )
-                  : const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 14),
-                    child: Text('日付を追加'),
+                  : Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    child: Text(l10n.todoDueDateFormIsEmptyText),
                   ),
         ),
       ],

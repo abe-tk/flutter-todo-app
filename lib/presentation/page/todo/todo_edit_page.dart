@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../feature/todo/domain/entity/todo_entity.dart';
+import '../../../l10n/l10n.dart';
+import '../../../util/validator/todo_form_validator.dart';
 import '../../common_widget/app_date_time_picker.dart';
 import '../../common_widget/app_text_form_field.dart';
 import 'notifier/todo_form_notifier.dart';
@@ -19,11 +21,13 @@ class TodoEditPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = L10n.of(context);
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final todoFormState = ref.watch(todoFormNotifierProvider(todo));
     final todoFormNotifier = ref.watch(todoFormNotifierProvider(todo).notifier);
+    final todoFormValidator = TodoFormValidator(l10n);
 
     void delete() {
       // TODO(takuro): 削除処理
@@ -64,18 +68,13 @@ class TodoEditPage extends HookConsumerWidget {
                     const Gap(16),
                     AppTextFormField(
                       initialValue: todoFormState.title,
-                      hintText: 'タイトルを入力',
+                      hintText: l10n.todoTitleFormHintText,
                       onChanged: todoFormNotifier.setTitle,
-                      validator: (value) {
-                        if (value == '') {
-                          return '入力してください';
-                        }
-                        return null;
-                      },
+                      validator: todoFormValidator.title,
                     ),
                     AppTextFormField(
                       initialValue: todoFormState.description,
-                      hintText: '詳細を追加',
+                      hintText: l10n.todoDescriptionFormHintText,
                       icon: const Icon(Icons.edit_note),
                       maxLines: 99,
                       onChanged: todoFormNotifier.setDescription,
@@ -87,7 +86,10 @@ class TodoEditPage extends HookConsumerWidget {
                       resetDate: todoFormNotifier.resetDueDate,
                     ),
                     const Gap(40),
-                    ElevatedButton(onPressed: save, child: const Text('保存する')),
+                    ElevatedButton(
+                      onPressed: save,
+                      child: Text(l10n.saveBtnText),
+                    ),
                     const Gap(100),
                   ],
                 ),
@@ -107,7 +109,7 @@ class TodoEditPage extends HookConsumerWidget {
                   child: TextButton(
                     onPressed: complete,
                     child: Text(
-                      '完了とする',
+                      l10n.completeBtnText,
                       style: textTheme.labelLarge!.copyWith(
                         color: colorScheme.onSecondaryContainer,
                         fontWeight: FontWeight.w700,

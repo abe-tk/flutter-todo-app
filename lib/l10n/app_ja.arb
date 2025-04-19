@@ -1,3 +1,19 @@
 {
-    "greeting": "こんにちは"
+    "@@locale": "ja",
+    "todoListPageAppBarTitle": "Flutter Todo App",
+    "sortButtomSheetTitle": "並べ替え",
+    "sortButtomSheetItemSpecifiedOorder": "指定した順序",
+    "sortButtomSheetItemDueDate": "期限日",
+    "todoTitleFormHintText": "タイトルを入力",
+    "validatorTodoTitle": "{validateResult,select, valid{}empty{入力してください。}other{}}",
+    "@validatorTodoTitle": {
+        "type": "text",
+        "placeholders": {
+            "validateResult": {}
+        }
+    },
+    "todoDescriptionFormHintText": "詳細を入力",
+    "todoDueDateFormIsEmptyText": "日付を入力",
+    "saveBtnText": "保存する",
+    "completeBtnText": "完了とする"
 }
