@@ -9,6 +9,7 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
+  cloud_firestore:
   firebase_core: ^3.13.0
   flutter:
     sdk: flutter
