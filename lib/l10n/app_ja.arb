@@ -18,5 +18,6 @@
     "todoDueDateFormIsEmptyText": "日付を入力",
     "saveBtnText": "保存する",
     "completeBtnText": "完了とする",
+    "incompleteBtnText": "未完了とする",
     "unexpectedError": "予期せぬエラーが発生しました。"
 }

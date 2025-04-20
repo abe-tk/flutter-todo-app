@@ -18,5 +18,6 @@
     "todoDueDateFormIsEmptyText": "Enter due date",
     "saveBtnText": "Save",
     "completeBtnText": "Complete",
+    "incompleteBtnText": "Incomplete",
     "unexpectedError": "An unexpected error has occurred."
 }

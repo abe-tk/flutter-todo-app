@@ -33,4 +33,11 @@ class TodoUseCase {
   Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
     await repository.updateSortOrder(todoList: todoList);
   }
+
+  Future<void> updateIsCompleted({
+    required TodoEntity todo,
+    required bool isCompleted,
+  }) async {
+    await repository.updateIsCompleted(todo: todo, isCompleted: isCompleted);
+  }
 }

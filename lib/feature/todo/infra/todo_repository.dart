@@ -37,20 +37,6 @@ class TodoRepository {
     }
   }
 
-  /// `Todo`の並び順を更新する
-  Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
-    try {
-      final batch = _firestore.batch();
-      for (var i = 0; i < todoList.length; i++) {
-        final todo = todoList[i];
-        batch.update(_todoCollection.doc(todo.id), {'sortOrder': i});
-      }
-      await batch.commit();
-    } on Exception catch (e) {
-      throw AppException(message: e.toString());
-    }
-  }
-
   /// 取得したTodoの並び順を調整する
   List<TodoEntity> _sortTodoList({
     required List<TodoEntity> list,
@@ -85,5 +71,31 @@ class TodoRepository {
         });
     }
     return sorted;
+  }
+
+  /// `Todo`の並び順を更新する
+  Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
+    try {
+      final batch = _firestore.batch();
+      for (var i = 0; i < todoList.length; i++) {
+        final todo = todoList[i];
+        batch.update(_todoCollection.doc(todo.id), {'sortOrder': i});
+      }
+      await batch.commit();
+    } on Exception catch (e) {
+      throw AppException(message: e.toString());
+    }
+  }
+
+  /// `Todo`の完了・未完了の更新
+  Future<void> updateIsCompleted({
+    required TodoEntity todo,
+    required bool isCompleted,
+  }) async {
+    try {
+      await _todoCollection.doc(todo.id).update({'isCompleted': isCompleted});
+    } on Exception catch (e) {
+      throw AppException(message: e.toString());
+    }
   }
 }

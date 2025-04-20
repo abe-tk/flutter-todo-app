@@ -4,14 +4,17 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../feature/todo/application/usecase/todo_usecase.dart';
 import '../../../feature/todo/domain/entity/todo_entity.dart';
 import '../../../l10n/l10n.dart';
 import '../../../util/validator/todo_form_validator.dart';
 import '../../common_widget/app_date_time_picker.dart';
+import '../../common_widget/app_snack_bar.dart';
 import '../../common_widget/app_text_form_field.dart';
+import '../../mixin/page_mixin.dart';
 import 'notifier/todo_form_notifier.dart';
 
-class TodoEditPage extends HookConsumerWidget {
+class TodoEditPage extends HookConsumerWidget with PageMixin {
   const TodoEditPage({super.key, required this.todo});
 
   final TodoEntity todo;
@@ -28,6 +31,7 @@ class TodoEditPage extends HookConsumerWidget {
     final todoFormState = ref.watch(todoFormNotifierProvider(todo));
     final todoFormNotifier = ref.watch(todoFormNotifierProvider(todo).notifier);
     final todoFormValidator = TodoFormValidator(l10n);
+    final todoUseCase = ref.watch(todoUseCaseProvider);
 
     void delete() {
       // TODO(takuro): 削除処理
@@ -41,9 +45,26 @@ class TodoEditPage extends HookConsumerWidget {
       }
     }
 
-    void complete() {
-      // TODO(takuro): タスク完了処理
-      context.pop();
+    Future<void> updateIsCompleted() async {
+      await execute(
+        context,
+        ref,
+        action: () async {
+          await todoUseCase.updateIsCompleted(
+            todo: todo,
+            isCompleted: !todo.isCompleted,
+          );
+        },
+        onComplete: () async {
+          context.pop();
+        },
+        onExceptionCatch: (e) async {
+          AppSnackBar.showError(
+            context: context,
+            message: l10n.unexpectedError,
+          );
+        },
+      );
     }
 
     return Scaffold(
@@ -107,9 +128,11 @@ class TodoEditPage extends HookConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: TextButton(
-                    onPressed: complete,
+                    onPressed: updateIsCompleted,
                     child: Text(
-                      l10n.completeBtnText,
+                      todo.isCompleted
+                          ? l10n.incompleteBtnText
+                          : l10n.completeBtnText,
                       style: textTheme.labelLarge!.copyWith(
                         color: colorScheme.onSecondaryContainer,
                         fontWeight: FontWeight.w700,
