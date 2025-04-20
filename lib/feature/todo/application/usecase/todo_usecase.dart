@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../enum/todo_sort_type.dart';
+import '../../../../presentation/page/todo/notifier/model/todo_form_model.dart';
 import '../../domain/entity/todo_entity.dart';
 import '../../infra/todo_repository.dart';
 
@@ -32,5 +33,23 @@ class TodoUseCase {
 
   Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
     await repository.updateSortOrder(todoList: todoList);
+  }
+
+  Future<void> updateTodo({
+    required TodoEntity todo,
+    required TodoFormModel todoForm,
+  }) async {
+    await repository.updateTodo(todo: todo, todoForm: todoForm);
+  }
+
+  Future<void> updateIsCompleted({
+    required TodoEntity todo,
+    required bool isCompleted,
+  }) async {
+    await repository.updateIsCompleted(todo: todo, isCompleted: isCompleted);
+  }
+
+  Future<void> deleteTodo({required TodoEntity todo}) async {
+    await repository.deleteTodo(todo: todo);
   }
 }
