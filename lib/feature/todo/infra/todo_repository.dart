@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../enum/todo_sort_type.dart';
+import '../../../presentation/page/todo/notifier/model/todo_form_model.dart';
 import '../../../util/exception/app_exception.dart';
+import '../../../util/extension/text_sanitizer.dart';
 import '../domain/entity/todo_entity.dart';
 
 class TodoRepository {
@@ -82,6 +84,22 @@ class TodoRepository {
         batch.update(_todoCollection.doc(todo.id), {'sortOrder': i});
       }
       await batch.commit();
+    } on Exception catch (e) {
+      throw AppException(message: e.toString());
+    }
+  }
+
+  /// `Todo`の更新
+  Future<void> updateTodo({
+    required TodoEntity todo,
+    required TodoFormModel todoForm,
+  }) async {
+    try {
+      await _todoCollection.doc(todo.id).update({
+        'title': todoForm.title.sanitizeRequired(),
+        'description': todoForm.description.sanitizeOptional(),
+        'dueDate': todoForm.dueDate,
+      });
     } on Exception catch (e) {
       throw AppException(message: e.toString());
     }

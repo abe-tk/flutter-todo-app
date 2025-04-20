@@ -19,5 +19,8 @@
     "saveBtnText": "Save",
     "completeBtnText": "Complete",
     "incompleteBtnText": "Incomplete",
+    "todoUpdateMessage": "Todo updated.",
+    "todoCompleteMessage": "Todo marked as complete.",
+    "todoIncompleteMessage": "Task marked as uncompleted.",
     "unexpectedError": "An unexpected error has occurred."
 }

@@ -38,10 +38,25 @@ class TodoEditPage extends HookConsumerWidget with PageMixin {
       context.pop();
     }
 
-    void save() {
+    Future<void> save() async {
       if (formKey.currentState!.validate()) {
-        // TODO(takuro): 保存処理
-        context.pop();
+        await execute(
+          context,
+          ref,
+          action: () async {
+            await todoUseCase.updateTodo(todo: todo, todoForm: todoFormState);
+          },
+          onComplete: () async {
+            context.pop();
+            AppSnackBar.show(context: context, message: l10n.todoUpdateMessage);
+          },
+          onExceptionCatch: (e) async {
+            AppSnackBar.showError(
+              context: context,
+              message: l10n.unexpectedError,
+            );
+          },
+        );
       }
     }
 
@@ -57,6 +72,13 @@ class TodoEditPage extends HookConsumerWidget with PageMixin {
         },
         onComplete: () async {
           context.pop();
+          AppSnackBar.show(
+            context: context,
+            message:
+                !todo.isCompleted
+                    ? l10n.todoCompleteMessage
+                    : l10n.todoIncompleteMessage,
+          );
         },
         onExceptionCatch: (e) async {
           AppSnackBar.showError(
