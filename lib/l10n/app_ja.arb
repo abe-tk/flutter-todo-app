@@ -1,9 +1,9 @@
 {
     "@@locale": "ja",
     "todoListPageAppBarTitle": "Flutter Todo App",
-    "sortButtomSheetTitle": "並べ替え",
-    "sortButtomSheetItemSpecifiedOorder": "指定した順序",
-    "sortButtomSheetItemDueDate": "期限日",
+    "sortBottomSheetTitle": "並べ替え",
+    "sortBottomSheetItemSpecifiedOrder": "指定した順序",
+    "sortBottomSheetItemDueDate": "期限日",
     "todoTitleFormHintText": "タイトルを入力",
     "validatorTodoTitle": "{validateResult,select, valid{}empty{入力してください。}other{}}",
     "@validatorTodoTitle": {

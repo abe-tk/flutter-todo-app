@@ -29,15 +29,15 @@ class TodoSortBottomSheet extends ConsumerWidget {
           const Gap(24),
           Padding(
             padding: const EdgeInsets.only(left: 16),
-            child: Text(l10n.sortButtomSheetTitle),
+            child: Text(l10n.sortBottomSheetTitle),
           ),
           _ListItem(
             sortType: TodoSortType.specifiedOrder,
-            title: l10n.sortButtomSheetItemSpecifiedOorder,
+            title: l10n.sortBottomSheetItemSpecifiedOrder,
           ),
           _ListItem(
             sortType: TodoSortType.dueDate,
-            title: l10n.sortButtomSheetItemDueDate,
+            title: l10n.sortBottomSheetItemDueDate,
           ),
           const Gap(24),
         ],
