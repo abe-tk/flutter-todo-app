@@ -4,13 +4,18 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../feature/todo/application/state/todo_list_state.dart';
+import '../../../../feature/todo/application/usecase/todo_usecase.dart';
 import '../../../../l10n/l10n.dart';
+import '../../../../util/exception/app_exception.dart';
 import '../../../../util/validator/todo_form_validator.dart';
 import '../../../common_widget/app_date_time_picker.dart';
+import '../../../common_widget/app_snack_bar.dart';
 import '../../../common_widget/app_text_form_field.dart';
+import '../../../mixin/page_mixin.dart';
 import '../notifier/todo_form_notifier.dart';
 
-class TodoAddBottomSheet extends HookConsumerWidget {
+class TodoAddBottomSheet extends HookConsumerWidget with PageMixin {
   const TodoAddBottomSheet._();
 
   static Future<void> show({required BuildContext context}) async {
@@ -28,11 +33,37 @@ class TodoAddBottomSheet extends HookConsumerWidget {
     final todoFormState = ref.watch(todoFormNotifierProvider(null));
     final todoFormNotifier = ref.watch(todoFormNotifierProvider(null).notifier);
     final todoFormValidator = TodoFormValidator(l10n);
+    final todoUseCase = ref.watch(todoUseCaseProvider);
+    final todoListState = ref
+        .watch(todoListStateProvider)
+        .whenOrNull(data: (value) => value);
 
-    void save() {
+    Future<void> save() async {
       if (formKey.currentState!.validate()) {
-        // TODO(takuro): 保存処理
-        context.pop();
+        await execute(
+          context,
+          ref,
+          action: () async {
+            if (todoListState == null) {
+              context.pop();
+              throw const AppException();
+            }
+            await todoUseCase.createTodo(
+              todoForm: todoFormState,
+              sortOrder: todoListState.length,
+            );
+          },
+          onComplete: () async {
+            context.pop();
+            AppSnackBar.show(context: context, message: l10n.todoCreateMessage);
+          },
+          onExceptionCatch: (e) async {
+            AppSnackBar.showError(
+              context: context,
+              message: l10n.unexpectedError,
+            );
+          },
+        );
       }
     }
 

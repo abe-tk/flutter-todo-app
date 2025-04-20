@@ -31,6 +31,13 @@ class TodoUseCase {
     return repository.realTimeFetchTodoList(sortType: sortType);
   }
 
+  Future<void> createTodo({
+    required TodoFormModel todoForm,
+    required int sortOrder,
+  }) async {
+    await repository.createTodo(todoForm: todoForm, sortOrder: sortOrder);
+  }
+
   Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
     await repository.updateSortOrder(todoList: todoList);
   }

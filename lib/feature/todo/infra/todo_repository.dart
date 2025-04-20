@@ -76,6 +76,26 @@ class TodoRepository {
   }
 
   /// `Todo`の並び順を更新する
+  Future<void> createTodo({
+    required TodoFormModel todoForm,
+    required int sortOrder,
+  }) async {
+    try {
+      await _todoCollection.add({
+        'title': todoForm.title.sanitizeRequired(),
+        'description': todoForm.description.sanitizeOptional(),
+        'isCompleted': false,
+        'dueDate': todoForm.dueDate,
+        'sortOrder': sortOrder,
+        'createdAt': DateTime.now(),
+        'updatedAt': DateTime.now(),
+      });
+    } on Exception catch (e) {
+      throw AppException(message: e.toString());
+    }
+  }
+
+  /// `Todo`の並び順を更新する
   Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
     try {
       final batch = _firestore.batch();
@@ -99,6 +119,7 @@ class TodoRepository {
         'title': todoForm.title.sanitizeRequired(),
         'description': todoForm.description.sanitizeOptional(),
         'dueDate': todoForm.dueDate,
+        'updatedAt': DateTime.now(),
       });
     } on Exception catch (e) {
       throw AppException(message: e.toString());
@@ -111,7 +132,10 @@ class TodoRepository {
     required bool isCompleted,
   }) async {
     try {
-      await _todoCollection.doc(todo.id).update({'isCompleted': isCompleted});
+      await _todoCollection.doc(todo.id).update({
+        'isCompleted': isCompleted,
+        'updatedAt': DateTime.now(),
+      });
     } on Exception catch (e) {
       throw AppException(message: e.toString());
     }
