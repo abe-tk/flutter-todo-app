@@ -1,9 +1,11 @@
 {
     "@@locale": "en",
     "todoListPageAppBarTitle": "Flutter Todo App",
-    "sortButtomSheetTitle": "Sort",
-    "sortButtomSheetItemSpecifiedOorder": "Specified order",
-    "sortButtomSheetItemDueDate": "Due date",
+    "sortBottomSheetTitle": "Sort",
+    "sortBottomSheetItemSpecifiedOrder": "Specified order",
+    "sortBottomSheetItemDueDate": "Due date",
+    "sortOrderRequiredMessage": "To reorder tasks, they must be changed to the “specified order”.",
+    "todoNotRegistered": "No todo has been registered.",
     "todoTitleFormHintText": "Enter title",
     "validatorTodoTitle": "{validateResult,select, valid{}empty{Please enter.}other{}}",
     "@validatorTodoTitle": {
@@ -15,5 +17,6 @@
     "todoDescriptionFormHintText": "Enter Detail",
     "todoDueDateFormIsEmptyText": "Enter due date",
     "saveBtnText": "Save",
-    "completeBtnText": "Complete"
+    "completeBtnText": "Complete",
+    "unexpectedError": "An unexpected error has occurred."
 }

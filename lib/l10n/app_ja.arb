@@ -1,9 +1,11 @@
 {
     "@@locale": "ja",
     "todoListPageAppBarTitle": "Flutter Todo App",
-    "sortButtomSheetTitle": "並べ替え",
-    "sortButtomSheetItemSpecifiedOorder": "指定した順序",
-    "sortButtomSheetItemDueDate": "期限日",
+    "sortBottomSheetTitle": "並べ替え",
+    "sortBottomSheetItemSpecifiedOrder": "指定した順序",
+    "sortBottomSheetItemDueDate": "期限日",
+    "sortOrderRequiredMessage": "タスクを並び替えるには、「指定した順序」に変更する必要があります。",
+    "todoNotRegistered": "タスクが登録されていません。",
     "todoTitleFormHintText": "タイトルを入力",
     "validatorTodoTitle": "{validateResult,select, valid{}empty{入力してください。}other{}}",
     "@validatorTodoTitle": {
@@ -15,5 +17,6 @@
     "todoDescriptionFormHintText": "詳細を入力",
     "todoDueDateFormIsEmptyText": "日付を入力",
     "saveBtnText": "保存する",
-    "completeBtnText": "完了とする"
+    "completeBtnText": "完了とする",
+    "unexpectedError": "予期せぬエラーが発生しました。"
 }

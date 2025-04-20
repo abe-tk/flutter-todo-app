@@ -1,35 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../enum/todo_sort_type.dart';
+import '../../../feature/todo/application/state/todo_list_state.dart';
+import '../../../feature/todo/application/usecase/todo_usecase.dart';
 import '../../../feature/todo/domain/entity/todo_entity.dart';
 import '../../../l10n/l10n.dart';
+import '../../common_widget/app_snack_bar.dart';
+import '../../mixin/page_mixin.dart';
+import 'notifier/todo_sort_type_notifier.dart';
 import 'widget/todo_add_bottom_sheet.dart';
 import 'widget/todo_list_item.dart';
-import 'widget/todo_sort_botttom_sheet.dart';
+import 'widget/todo_sort_bottom_sheet.dart';
 
-class TodoListPage extends StatelessWidget {
+class TodoListPage extends ConsumerWidget with PageMixin {
   const TodoListPage({super.key});
 
   static const name = 'todo_list';
   static const path = '/';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = L10n.of(context);
+    final todoListState = ref.watch(todoListStateProvider);
+    final todoSortTypeState = ref.watch(todoSortTypeNotifierProvider);
+    final todoUseCase = ref.watch(todoUseCaseProvider);
 
-    // TODO(takuro): firestoreから取得するデータに置き換える
-    final todoList = List.generate(10, (int index) {
-      return TodoEntity(
-        id: index.toString(),
-        title: 'タスク$index',
-        description: 'これはタスクの詳細です。これはタスクの詳細です。これはタスクの詳細です。これはタスクの詳細です。',
-        isCompleted: false,
-        dueDate: DateTime(2025, 4, index + 10),
-        sortOrder: index,
-        createdAt: DateTime(2025, 4, index),
-        updatedAt: DateTime(2025, 4, index),
+    Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
+      await execute(
+        context,
+        ref,
+        showLoading: false,
+        action: () async {
+          await todoUseCase.updateSortOrder(todoList: todoList);
+        },
+        onExceptionCatch: (e) async {
+          AppSnackBar.showError(
+            context: context,
+            message: l10n.unexpectedError,
+          );
+        },
       );
-    });
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -41,23 +54,60 @@ class TodoListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ReorderableListView.builder(
-        itemCount: todoList.length,
-        itemBuilder: (context, index) {
-          return Material(
-            key: Key('$index'),
-            child: TodoListItem(todo: todoList[index]),
-          );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          ref.invalidate(todoListStateProvider);
         },
-        onReorder: (int oldIndex, int newIndex) {
-          // TODO(takuro): 並べ替え処理
-          if (oldIndex < newIndex) {
-            newIndex -= 1;
-          }
-          final item = todoList.removeAt(oldIndex);
-          todoList.insert(newIndex, item);
-        },
-        footer: const Gap(80),
+        child: todoListState.when(
+          loading: () {
+            return const Center(child: CircularProgressIndicator());
+          },
+          error: (_, _) {
+            return ListView(
+              children: [
+                const Gap(40),
+                Text(l10n.unexpectedError, textAlign: TextAlign.center),
+              ],
+            );
+          },
+          data: (todoList) {
+            if (todoList.isEmpty) {
+              return ListView(
+                children: [
+                  const Gap(40),
+                  Text(l10n.todoNotRegistered, textAlign: TextAlign.center),
+                ],
+              );
+            }
+            return ReorderableListView.builder(
+              itemCount: todoList.length,
+              itemBuilder: (context, index) {
+                return Material(
+                  key: Key('$index'),
+                  child: TodoListItem(todo: todoList[index]),
+                );
+              },
+              onReorder: (oldIndex, newIndex) async {
+                if (todoSortTypeState != TodoSortType.specifiedOrder) {
+                  AppSnackBar.show(
+                    context: context,
+                    message: l10n.sortOrderRequiredMessage,
+                  );
+                  return;
+                }
+
+                if (oldIndex < newIndex) {
+                  newIndex -= 1;
+                }
+                final item = todoList.removeAt(oldIndex);
+                todoList.insert(newIndex, item);
+
+                await updateSortOrder(todoList: todoList);
+              },
+              footer: const Gap(80),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => TodoAddBottomSheet.show(context: context),

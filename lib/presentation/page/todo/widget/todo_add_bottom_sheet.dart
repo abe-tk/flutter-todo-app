@@ -58,6 +58,9 @@ class TodoAddBottomSheet extends HookConsumerWidget {
                     initialValue: todoFormState.description,
                     hintText: l10n.todoDescriptionFormHintText,
                     icon: const Icon(Icons.edit_note),
+                    // MEMO(abe-tk):
+                    // ボトムシートが画面領域いっぱいになるとスワイプで閉じれなくなるためmaxLinesを10にしている
+                    // SingleChildScrollViewと合わせても閉じれるようにできるはずなので調査対応をしたい。
                     maxLines: 10,
                     onChanged: todoFormNotifier.setDescription,
                   ),
@@ -67,7 +70,10 @@ class TodoAddBottomSheet extends HookConsumerWidget {
                     setDate: todoFormNotifier.setDueDate,
                     resetDate: todoFormNotifier.resetDueDate,
                   ),
-                  ElevatedButton(onPressed: save, child: Text(l10n.saveBtnText)),
+                  ElevatedButton(
+                    onPressed: save,
+                    child: Text(l10n.saveBtnText),
+                  ),
                   const Gap(16),
                 ],
               ),

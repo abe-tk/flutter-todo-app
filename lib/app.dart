@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'config/theme.dart';
 import 'l10n/l10n.dart';
+import 'presentation/mixin/loading_state.dart';
 import 'routing/go_router.dart';
 
 class MyApp extends ConsumerWidget {
@@ -13,12 +14,6 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       theme: lightTheme(),
-      builder: (context, child) {
-        return GestureDetector(
-          onTap: () => primaryFocus?.unfocus(),
-          child: child,
-        );
-      },
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.supportedLocales,
       localeListResolutionCallback: (locales, supportedLocales) {
@@ -27,6 +22,24 @@ class MyApp extends ConsumerWidget {
         return locale;
       },
       routerConfig: ref.watch(goRouterProvider),
+      builder: (context, child) {
+        final isLoading = ref.watch(loadingStateProvider);
+        return GestureDetector(
+          onTap: () => primaryFocus?.unfocus(),
+          child: Stack(
+            children: [
+              child!,
+              if (isLoading)
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  color: Colors.black.withValues(alpha: 0.7),
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

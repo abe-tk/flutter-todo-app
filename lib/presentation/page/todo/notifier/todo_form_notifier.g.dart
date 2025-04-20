@@ -6,7 +6,7 @@ part of 'todo_form_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$todoFormNotifierHash() => r'44641efff234bf9bffc5df42fada7c1c6ecb3cf3';
+String _$todoFormNotifierHash() => r'9715d5974231a4bc13719691a2be55a12f495263';
 
 /// Copied from Dart SDK
 class _SystemHash {

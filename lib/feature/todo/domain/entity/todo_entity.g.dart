@@ -11,13 +11,17 @@ _TodoEntity _$TodoEntityFromJson(Map<String, dynamic> json) => _TodoEntity(
   title: json['title'] as String,
   description: json['description'] as String?,
   isCompleted: json['isCompleted'] as bool,
-  dueDate:
-      json['dueDate'] == null
-          ? null
-          : DateTime.parse(json['dueDate'] as String),
+  dueDate: _$JsonConverterFromJson<Timestamp, DateTime>(
+    json['dueDate'],
+    const TimestampConverter().fromJson,
+  ),
   sortOrder: (json['sortOrder'] as num).toInt(),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  createdAt: const TimestampConverter().fromJson(
+    json['createdAt'] as Timestamp,
+  ),
+  updatedAt: const TimestampConverter().fromJson(
+    json['updatedAt'] as Timestamp,
+  ),
 );
 
 Map<String, dynamic> _$TodoEntityToJson(_TodoEntity instance) =>
@@ -26,8 +30,21 @@ Map<String, dynamic> _$TodoEntityToJson(_TodoEntity instance) =>
       'title': instance.title,
       'description': instance.description,
       'isCompleted': instance.isCompleted,
-      'dueDate': instance.dueDate?.toIso8601String(),
+      'dueDate': _$JsonConverterToJson<Timestamp, DateTime>(
+        instance.dueDate,
+        const TimestampConverter().toJson,
+      ),
       'sortOrder': instance.sortOrder,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
+      'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) => json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) => value == null ? null : toJson(value);
