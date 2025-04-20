@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../enum/todo_sort_type.dart';
 import '../../../../l10n/l10n.dart';
+import '../notifier/todo_sort_type_notifier.dart';
 
-class TodoSortBottomSheet extends HookConsumerWidget {
+class TodoSortBottomSheet extends ConsumerWidget {
   const TodoSortBottomSheet._();
 
   static Future<void> show({required BuildContext context}) async {
@@ -28,23 +31,43 @@ class TodoSortBottomSheet extends HookConsumerWidget {
             padding: const EdgeInsets.only(left: 16),
             child: Text(l10n.sortButtomSheetTitle),
           ),
-          ListTile(
-            leading: const Icon(Icons.check),
-            title: Text(l10n.sortButtomSheetItemSpecifiedOorder),
-            onTap: () {
-              // TODO(takuro): ソート処理
-            },
+          _ListItem(
+            sortType: TodoSortType.specifiedOrder,
+            title: l10n.sortButtomSheetItemSpecifiedOorder,
           ),
-          ListTile(
-            leading: const Icon(Icons.check),
-            title: Text(l10n.sortButtomSheetItemDueDate),
-            onTap: () {
-              // TODO(takuro): ソート処理
-            },
+          _ListItem(
+            sortType: TodoSortType.dueDate,
+            title: l10n.sortButtomSheetItemDueDate,
           ),
           const Gap(24),
         ],
       ),
+    );
+  }
+}
+
+class _ListItem extends ConsumerWidget {
+  const _ListItem({required this.sortType, required this.title});
+
+  final TodoSortType sortType;
+  final String title;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todoSortTypeState = ref.watch(todoSortTypeNotifierProvider);
+    final todoSortTypeNotifier = ref.watch(
+      todoSortTypeNotifierProvider.notifier,
+    );
+    return ListTile(
+      leading: Icon(
+        Icons.check,
+        color: todoSortTypeState == sortType ? null : Colors.transparent,
+      ),
+      title: Text(title),
+      onTap: () {
+        todoSortTypeNotifier.setSortType(sortType);
+        context.pop();
+      },
     );
   }
 }

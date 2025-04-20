@@ -1,0 +1,1 @@
+enum TodoSortType { specifiedOrder, dueDate }
