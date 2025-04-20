@@ -19,6 +19,7 @@
     "saveBtnText": "Save",
     "completeBtnText": "Complete",
     "incompleteBtnText": "Incomplete",
+    "todoCreateMessage": "Todo added.",
     "todoUpdateMessage": "Todo updated.",
     "todoCompleteMessage": "Todo marked as complete.",
     "todoIncompleteMessage": "Task marked as uncompleted.",

@@ -19,6 +19,7 @@
     "saveBtnText": "保存する",
     "completeBtnText": "完了とする",
     "incompleteBtnText": "未完了とする",
+    "todoCreateMessage": "タスクを追加しました。",
     "todoUpdateMessage": "タスクを更新しました。",
     "todoCompleteMessage": "タスクを完了としました。",
     "todoIncompleteMessage": "タスクを未完了としました。",
