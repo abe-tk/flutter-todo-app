@@ -116,4 +116,13 @@ class TodoRepository {
       throw AppException(message: e.toString());
     }
   }
+
+  /// `Todo`の削除
+  Future<void> deleteTodo({required TodoEntity todo}) async {
+    try {
+      await _todoCollection.doc(todo.id).delete();
+    } on Exception catch (e) {
+      throw AppException(message: e.toString());
+    }
+  }
 }

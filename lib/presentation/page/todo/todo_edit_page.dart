@@ -33,9 +33,24 @@ class TodoEditPage extends HookConsumerWidget with PageMixin {
     final todoFormValidator = TodoFormValidator(l10n);
     final todoUseCase = ref.watch(todoUseCaseProvider);
 
-    void delete() {
-      // TODO(takuro): 削除処理
-      context.pop();
+    Future<void> delete() async {
+      await execute(
+        context,
+        ref,
+        action: () async {
+          await todoUseCase.deleteTodo(todo: todo);
+        },
+        onComplete: () async {
+          context.pop();
+          AppSnackBar.show(context: context, message: l10n.todoDeleteMessage);
+        },
+        onExceptionCatch: (e) async {
+          AppSnackBar.showError(
+            context: context,
+            message: l10n.unexpectedError,
+          );
+        },
+      );
     }
 
     Future<void> save() async {

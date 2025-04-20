@@ -22,5 +22,6 @@
     "todoUpdateMessage": "タスクを更新しました。",
     "todoCompleteMessage": "タスクを完了としました。",
     "todoIncompleteMessage": "タスクを未完了としました。",
+    "todoDeleteMessage": "タスクを削除しました。",
     "unexpectedError": "予期せぬエラーが発生しました。"
 }

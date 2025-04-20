@@ -48,4 +48,8 @@ class TodoUseCase {
   }) async {
     await repository.updateIsCompleted(todo: todo, isCompleted: isCompleted);
   }
+
+  Future<void> deleteTodo({required TodoEntity todo}) async {
+    await repository.deleteTodo(todo: todo);
+  }
 }
