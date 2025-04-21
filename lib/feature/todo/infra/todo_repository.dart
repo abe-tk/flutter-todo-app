@@ -75,21 +75,24 @@ class TodoRepository {
     return sorted;
   }
 
-  /// `Todo`の並び順を更新する
+  /// `Todo`の新規作成する
   Future<void> createTodo({
     required TodoFormModel todoForm,
     required int sortOrder,
   }) async {
     try {
-      await _todoCollection.add({
-        'title': todoForm.title.sanitizeRequired(),
-        'description': todoForm.description.sanitizeOptional(),
-        'isCompleted': false,
-        'dueDate': todoForm.dueDate,
-        'sortOrder': sortOrder,
-        'createdAt': DateTime.now(),
-        'updatedAt': DateTime.now(),
-      });
+      final todo = TodoEntity(
+        id: 'temp', // toJsonでidは含まないので仮の値を入れている
+        title: todoForm.title.sanitizeRequired(),
+        description: todoForm.description.sanitizeOptional(),
+        isCompleted: false,
+        dueDate: todoForm.dueDate,
+        sortOrder: sortOrder,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      );
+      final json = todo.toJson();
+      await _todoCollection.add(json);
     } on Exception catch (e) {
       throw AppException(message: e.toString());
     }
@@ -101,7 +104,9 @@ class TodoRepository {
       final batch = _firestore.batch();
       for (var i = 0; i < todoList.length; i++) {
         final todo = todoList[i];
-        batch.update(_todoCollection.doc(todo.id), {'sortOrder': i});
+        final updatedTodo = todo.copyWith(sortOrder: i);
+        final json = updatedTodo.toJson();
+        batch.update(_todoCollection.doc(todo.id), json);
       }
       await batch.commit();
     } on Exception catch (e) {
@@ -115,12 +120,14 @@ class TodoRepository {
     required TodoFormModel todoForm,
   }) async {
     try {
-      await _todoCollection.doc(todo.id).update({
-        'title': todoForm.title.sanitizeRequired(),
-        'description': todoForm.description.sanitizeOptional(),
-        'dueDate': todoForm.dueDate,
-        'updatedAt': DateTime.now(),
-      });
+      final updatedTodo = todo.copyWith(
+        title: todoForm.title.sanitizeRequired(),
+        description: todoForm.description.sanitizeOptional(),
+        dueDate: todoForm.dueDate,
+        updatedAt: DateTime.now(),
+      );
+      final json = updatedTodo.toJson();
+      await _todoCollection.doc(todo.id).update(json);
     } on Exception catch (e) {
       throw AppException(message: e.toString());
     }
@@ -132,10 +139,12 @@ class TodoRepository {
     required bool isCompleted,
   }) async {
     try {
-      await _todoCollection.doc(todo.id).update({
-        'isCompleted': isCompleted,
-        'updatedAt': DateTime.now(),
-      });
+      final updatedTodo = todo.copyWith(
+        isCompleted: isCompleted,
+        updatedAt: DateTime.now(),
+      );
+      final json = updatedTodo.toJson();
+      await _todoCollection.doc(todo.id).update(json);
     } on Exception catch (e) {
       throw AppException(message: e.toString());
     }

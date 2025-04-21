@@ -5,8 +5,20 @@ class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
   const TimestampConverter();
 
   @override
-  DateTime fromJson(Timestamp json) => json.toDate();
+  DateTime fromJson(Timestamp json) {
+    final dateTime = json.toDate();
+    final dateTimeNow = DateTime.now();
+    final offsetInHours = dateTimeNow.timeZoneOffset.inHours;
+    final offsetDateTime = dateTime.add(Duration(hours: -offsetInHours));
+    return offsetDateTime;
+  }
 
   @override
-  Timestamp toJson(DateTime object) => Timestamp.fromDate(object);
+  Timestamp toJson(DateTime object) {
+    final dateTimeNow = DateTime.now();
+    final offsetInHours = dateTimeNow.timeZoneOffset.inHours;
+    final offsetDateTime = object.add(Duration(hours: offsetInHours));
+    final utcDateTime = offsetDateTime.toUtc();
+    return Timestamp.fromDate(utcDateTime);
+  }
 }

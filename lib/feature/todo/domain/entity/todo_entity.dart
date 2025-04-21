@@ -9,7 +9,8 @@ part 'todo_entity.g.dart';
 @freezed
 abstract class TodoEntity with _$TodoEntity {
   const factory TodoEntity({
-    required String id,
+    // ignore: invalid_annotation_target
+    @JsonKey(includeToJson: false) required String id,
     required String title,
     String? description,
     required bool isCompleted,
