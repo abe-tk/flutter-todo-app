@@ -26,7 +26,6 @@ _TodoEntity _$TodoEntityFromJson(Map<String, dynamic> json) => _TodoEntity(
 
 Map<String, dynamic> _$TodoEntityToJson(_TodoEntity instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'title': instance.title,
       'description': instance.description,
       'isCompleted': instance.isCompleted,

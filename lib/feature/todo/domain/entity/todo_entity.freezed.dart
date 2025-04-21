@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TodoEntity {
 
- String get id; String get title; String? get description; bool get isCompleted;@TimestampConverter() DateTime? get dueDate; int get sortOrder;@TimestampConverter() DateTime get createdAt;@TimestampConverter() DateTime get updatedAt;
+// ignore: invalid_annotation_target
+@JsonKey(includeToJson: false) String get id; String get title; String? get description; bool get isCompleted;@TimestampConverter() DateTime? get dueDate; int get sortOrder;@TimestampConverter() DateTime get createdAt;@TimestampConverter() DateTime get updatedAt;
 /// Create a copy of TodoEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +50,7 @@ abstract mixin class $TodoEntityCopyWith<$Res>  {
   factory $TodoEntityCopyWith(TodoEntity value, $Res Function(TodoEntity) _then) = _$TodoEntityCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String? description, bool isCompleted,@TimestampConverter() DateTime? dueDate, int sortOrder,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt
+@JsonKey(includeToJson: false) String id, String title, String? description, bool isCompleted,@TimestampConverter() DateTime? dueDate, int sortOrder,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt
 });
 
 
@@ -87,10 +88,11 @@ as DateTime,
 @JsonSerializable()
 
 class _TodoEntity implements TodoEntity {
-  const _TodoEntity({required this.id, required this.title, this.description, required this.isCompleted, @TimestampConverter() this.dueDate, required this.sortOrder, @TimestampConverter() required this.createdAt, @TimestampConverter() required this.updatedAt});
+  const _TodoEntity({@JsonKey(includeToJson: false) required this.id, required this.title, this.description, required this.isCompleted, @TimestampConverter() this.dueDate, required this.sortOrder, @TimestampConverter() required this.createdAt, @TimestampConverter() required this.updatedAt});
   factory _TodoEntity.fromJson(Map<String, dynamic> json) => _$TodoEntityFromJson(json);
 
-@override final  String id;
+// ignore: invalid_annotation_target
+@override@JsonKey(includeToJson: false) final  String id;
 @override final  String title;
 @override final  String? description;
 @override final  bool isCompleted;
@@ -132,7 +134,7 @@ abstract mixin class _$TodoEntityCopyWith<$Res> implements $TodoEntityCopyWith<$
   factory _$TodoEntityCopyWith(_TodoEntity value, $Res Function(_TodoEntity) _then) = __$TodoEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String? description, bool isCompleted,@TimestampConverter() DateTime? dueDate, int sortOrder,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt
+@JsonKey(includeToJson: false) String id, String title, String? description, bool isCompleted,@TimestampConverter() DateTime? dueDate, int sortOrder,@TimestampConverter() DateTime createdAt,@TimestampConverter() DateTime updatedAt
 });
 
 
