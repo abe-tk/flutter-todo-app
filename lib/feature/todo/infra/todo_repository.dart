@@ -58,11 +58,11 @@ class TodoRepository {
           final bDue = b.dueDate;
 
           if (aDue != null && bDue != null) {
-            // 両方の期限がある場合は、新しい順（降順）に並べる
-            return bDue.compareTo(aDue);
+            // 両方の期限がある場合は、古い順（昇順）に並べる
+            return aDue.compareTo(bDue);
           } else if (aDue == null && bDue == null) {
-            // 両方期限がない場合は、作成日時（createdAt）が新しい順に並べる
-            return b.createdAt.compareTo(a.createdAt);
+            // 両方期限がない場合は、指定したソート順に並べる
+            return a.sortOrder.compareTo(b.sortOrder);
           } else if (aDue == null) {
             // a の期限がない → b を前に持ってくる
             return 1;
