@@ -4,9 +4,7 @@ Flutter x Firebase 製のTodoアプリ
 
 #### 使用技術
 
-<img src="https://img.shields.io/badge/-Dart-006994.svg">
-<img src="https://img.shields.io/badge/-Flutter-53c5f8.svg">
-<img src="https://img.shields.io/badge/-Firebase-FFCB05.svg"> 
+<img src="https://img.shields.io/badge/-Dart-006994.svg"> <img src="https://img.shields.io/badge/-Flutter-53c5f8.svg"> <img src="https://img.shields.io/badge/-Firebase-FFCB05.svg"> 
 
 
 ## デモ・機能
