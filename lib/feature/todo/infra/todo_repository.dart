@@ -7,12 +7,12 @@ import '../../../util/extension/text_sanitizer.dart';
 import '../domain/entity/todo_entity.dart';
 
 class TodoRepository {
-  TodoRepository({required FirebaseFirestore firestore, required String userId})
+  TodoRepository({required FirebaseFirestore firestore, String? userId})
     : _firestore = firestore,
       _userId = userId;
 
   final FirebaseFirestore _firestore;
-  final String _userId;
+  final String? _userId;
 
   CollectionReference<Map<String, dynamic>> get _todoCollection {
     return _firestore.collection('users').doc(_userId).collection('todos');

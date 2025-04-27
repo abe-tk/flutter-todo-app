@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../enum/todo_sort_type.dart';
 import '../../../../presentation/page/todo/notifier/model/todo_form_model.dart';
+import '../../../auth/application/state/auth_state.dart';
 import '../../domain/entity/todo_entity.dart';
 import '../../infra/todo_repository.dart';
 
@@ -11,11 +12,11 @@ part 'todo_usecase.g.dart';
 
 @riverpod
 TodoUseCase todoUseCase(Ref ref) {
+  final uid = ref.watch(authStateProvider).value?.uid;
   return TodoUseCase(
     repository: TodoRepository(
       firestore: FirebaseFirestore.instance,
-      // TODO(takuro): 認証機能実装後、providerで管理する認証情報を用いてuserIdを指定する
-      userId: 'b9WIpJvz4xnGFTi0NTR9',
+      userId: uid,
     ),
   );
 }
