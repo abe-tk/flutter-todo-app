@@ -6,7 +6,54 @@ part of 'go_router.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [$todoListPageRoute];
+List<RouteBase> get $appRoutes => [$signInPageRoute, $todoListPageRoute];
+
+RouteBase get $signInPageRoute => GoRouteData.$route(
+  path: '/sign_in',
+  name: 'sign_in',
+
+  factory: $SignInPageRouteExtension._fromState,
+  routes: [
+    GoRouteData.$route(
+      path: 'sign_up',
+      name: 'sign_up',
+
+      factory: $SignUpPageRouteExtension._fromState,
+    ),
+  ],
+);
+
+extension $SignInPageRouteExtension on SignInPageRoute {
+  static SignInPageRoute _fromState(GoRouterState state) =>
+      const SignInPageRoute();
+
+  String get location => GoRouteData.$location('/sign_in');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SignUpPageRouteExtension on SignUpPageRoute {
+  static SignUpPageRoute _fromState(GoRouterState state) =>
+      const SignUpPageRoute();
+
+  String get location => GoRouteData.$location('/sign_in/sign_up');
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
 
 RouteBase get $todoListPageRoute => GoRouteData.$route(
   path: '/',
