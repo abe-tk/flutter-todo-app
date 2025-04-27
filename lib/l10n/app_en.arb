@@ -24,5 +24,13 @@
     "todoCompleteMessage": "Todo marked as complete.",
     "todoIncompleteMessage": "Task marked as uncompleted.",
     "todoDeleteMessage": "Deleted task.",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "invalidCredential": "Invalid credentials. Please try again.",
+    "invalidEmail": "Email address format is incorrect.",
+    "userDisabled": "This account has been disabled. Please contact the administrator.",
+    "emailAlreadyInUse": "This e-mail address is already in use. Please try another email address.",
+    "operationNotAllowed": "This operation is currently not allowed. Please contact your administrator.",
+    "weakPassword": "Password is too short, please make it at least 6 characters.",
     "unexpectedError": "An unexpected error has occurred."
 }

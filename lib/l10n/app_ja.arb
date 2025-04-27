@@ -24,5 +24,13 @@
     "todoCompleteMessage": "タスクを完了としました。",
     "todoIncompleteMessage": "タスクを未完了としました。",
     "todoDeleteMessage": "タスクを削除しました。",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "invalidCredential": "認証情報が無効です。もう一度お試しください。",
+    "invalidEmail": "メールアドレスの形式が正しくありません。",
+    "userDisabled": "このアカウントは無効化されています。管理者にお問い合わせください。",
+    "emailAlreadyInUse": "このメールアドレスはすでに使用されています。別のメールアドレスをお試しください。",
+    "operationNotAllowed": "この操作は現在許可されていません。管理者にお問い合わせください。",
+    "weakPassword": "パスワードが短すぎます。6文字以上にしてください。",
     "unexpectedError": "予期せぬエラーが発生しました。"
 }
