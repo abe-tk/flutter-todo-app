@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -58,31 +57,33 @@ class SignUpPage extends HookConsumerWidget with PageMixin {
 
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppTextFormField(
-              controller: emailController,
-              icon: const Icon(Icons.email),
-            ),
-            AppTextFormField(
-              controller: pwdController,
-              icon: const Icon(Icons.key),
-              obscureText: pwdObscureText.value,
-              obscureChange: () {
-                pwdObscureText.value = !pwdObscureText.value;
-              },
-            ),
-            const Gap(24),
-            ElevatedButton(onPressed: signUp, child: Text(l10n.signUp)),
-            const Gap(24),
-            TextButton(
-              onPressed: () {
-                context.pop();
-              },
-              child: Text(l10n.signIn),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 24,
+            children: [
+              AppTextFormField(
+                controller: emailController,
+                icon: const Icon(Icons.email),
+              ),
+              AppTextFormField(
+                controller: pwdController,
+                icon: const Icon(Icons.key),
+                obscureText: pwdObscureText.value,
+                obscureChange: () {
+                  pwdObscureText.value = !pwdObscureText.value;
+                },
+              ),
+              ElevatedButton(onPressed: signUp, child: Text(l10n.signUp)),
+              TextButton(
+                onPressed: () {
+                  context.pop();
+                },
+                child: Text(l10n.signIn),
+              ),
+            ],
+          ),
         ),
       ),
     );

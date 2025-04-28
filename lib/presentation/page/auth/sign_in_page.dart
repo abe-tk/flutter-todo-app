@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../feature/auth/application/usecase/auth_usecase.dart';
@@ -61,6 +60,7 @@ class SignInPage extends HookConsumerWidget with PageMixin {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            spacing: 24,
             children: [
               AppTextFormField(
                 controller: emailController,
@@ -74,9 +74,7 @@ class SignInPage extends HookConsumerWidget with PageMixin {
                   pwdObscureText.value = !pwdObscureText.value;
                 },
               ),
-              const Gap(24),
               ElevatedButton(onPressed: signIn, child: Text(l10n.signIn)),
-              const Gap(24),
               TextButton(
                 onPressed: () {
                   const SignUpPageRoute().go(context);
