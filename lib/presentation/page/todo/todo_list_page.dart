@@ -7,7 +7,7 @@ import '../../../feature/auth/application/usecase/auth_usecase.dart';
 import '../../../feature/todo/application/state/todo_list_state.dart';
 import '../../../feature/todo/application/usecase/todo_usecase.dart';
 import '../../../feature/todo/domain/entity/todo_entity.dart';
-import '../../../l10n/l10n.dart';
+import '../../../gen/i18n/app_localizations.dart';
 import '../../common_widget/app_snack_bar.dart';
 import '../../mixin/page_mixin.dart';
 import 'notifier/todo_sort_type_notifier.dart';
@@ -23,7 +23,7 @@ class TodoListPage extends ConsumerWidget with PageMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = L10n.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final todoListState = ref.watch(todoListStateProvider);
     final todoSortTypeState = ref.watch(todoSortTypeNotifierProvider);
     final todoUseCase = ref.watch(todoUseCaseProvider);

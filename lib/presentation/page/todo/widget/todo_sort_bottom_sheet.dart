@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../enum/todo_sort_type.dart';
-import '../../../../l10n/l10n.dart';
+import '../../../../gen/i18n/app_localizations.dart';
 import '../notifier/todo_sort_type_notifier.dart';
 
 class TodoSortBottomSheet extends ConsumerWidget {
@@ -20,7 +20,7 @@ class TodoSortBottomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = L10n.of(context);
+    final l10n = AppLocalizations.of(context)!;
     return SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,

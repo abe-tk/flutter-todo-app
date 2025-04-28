@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../feature/auth/application/usecase/auth_usecase.dart';
-import '../../../l10n/l10n.dart';
+import '../../../gen/i18n/app_localizations.dart';
 import '../../../routing/go_router.dart';
 import '../../common_widget/app_snack_bar.dart';
 import '../../common_widget/app_text_form_field.dart';
@@ -17,7 +17,7 @@ class SignInPage extends HookConsumerWidget with PageMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = L10n.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final authUseCase = ref.watch(authUseCaseProvider);
     final emailController = useTextEditingController();
     final pwdController = useTextEditingController();

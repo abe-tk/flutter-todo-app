@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../feature/todo/application/state/todo_list_state.dart';
 import '../../../../feature/todo/application/usecase/todo_usecase.dart';
-import '../../../../l10n/l10n.dart';
+import '../../../../gen/i18n/app_localizations.dart';
 import '../../../../util/exception/app_exception.dart';
 import '../../../../util/validator/todo_form_validator.dart';
 import '../../../common_widget/app_date_time_picker.dart';
@@ -28,7 +28,7 @@ class TodoAddBottomSheet extends HookConsumerWidget with PageMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = L10n.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final todoFormState = ref.watch(todoFormNotifierProvider(null));
     final todoFormNotifier = ref.watch(todoFormNotifierProvider(null).notifier);

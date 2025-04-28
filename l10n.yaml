@@ -1,3 +1,7 @@
-template-arb-file: app_en.arb
-output-class: L10n
-nullable-getter: false
+synthetic-package: false
+
+# The files are generated into the path specified by `arb-dir`
+arb-dir: lib/i18n
+
+# Or, specifically provide an output path:
+output-dir: lib/gen/i18n
