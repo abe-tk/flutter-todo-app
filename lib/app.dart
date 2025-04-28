@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import 'config/theme.dart';
-import 'l10n/l10n.dart';
+import 'gen/i18n/app_localizations.dart';
 import 'presentation/mixin/loading_state.dart';
 import 'routing/go_router.dart';
 
@@ -14,8 +14,8 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       theme: lightTheme(),
-      localizationsDelegates: L10n.localizationsDelegates,
-      supportedLocales: L10n.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       localeListResolutionCallback: (locales, supportedLocales) {
         final locale = basicLocaleListResolution(locales, supportedLocales);
         Intl.defaultLocale = locale.toString();

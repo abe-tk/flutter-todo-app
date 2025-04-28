@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../../l10n/l10n.dart';
+import '../../gen/i18n/app_localizations.dart';
 import '../../util/extension/date_time_formatter.dart';
 
 class AppDatePickerForm extends StatelessWidget {
@@ -18,7 +18,7 @@ class AppDatePickerForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = L10n.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     Future<void> datePick() async {
       final date = await showDatePicker(

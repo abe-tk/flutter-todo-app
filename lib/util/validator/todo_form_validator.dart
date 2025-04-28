@@ -1,9 +1,9 @@
-import '../../l10n/l10n.dart';
+import '../../gen/i18n/app_localizations.dart';
 import 'form_validator.dart';
 
 class TodoFormValidator {
   TodoFormValidator(this.l10n);
-  L10n l10n;
+  AppLocalizations l10n;
   final formValidator = FormValidator();
 
   String? title(String? title) {

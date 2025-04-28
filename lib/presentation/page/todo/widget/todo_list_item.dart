@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../feature/todo/application/usecase/todo_usecase.dart';
 import '../../../../feature/todo/domain/entity/todo_entity.dart';
-import '../../../../l10n/l10n.dart';
+import '../../../../gen/i18n/app_localizations.dart';
 import '../../../../routing/go_router.dart';
 import '../../../../util/extension/date_time_formatter.dart';
 import '../../../common_widget/app_snack_bar.dart';
@@ -16,7 +16,7 @@ class TodoListItem extends ConsumerWidget with PageMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = L10n.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final todoUseCase = ref.watch(todoUseCaseProvider);
