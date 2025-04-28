@@ -26,6 +26,7 @@
     "todoDeleteMessage": "Deleted task.",
     "signIn": "Sign In",
     "signUp": "Sign Up",
+    "signOut": "Sign Out",
     "invalidCredential": "Invalid credentials. Please try again.",
     "invalidEmail": "Email address format is incorrect.",
     "userDisabled": "This account has been disabled. Please contact the administrator.",
