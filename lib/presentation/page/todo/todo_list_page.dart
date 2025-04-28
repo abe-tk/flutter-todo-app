@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../enum/todo_sort_type.dart';
+import '../../../feature/auth/application/usecase/auth_usecase.dart';
 import '../../../feature/todo/application/state/todo_list_state.dart';
 import '../../../feature/todo/application/usecase/todo_usecase.dart';
 import '../../../feature/todo/domain/entity/todo_entity.dart';
@@ -26,6 +27,7 @@ class TodoListPage extends ConsumerWidget with PageMixin {
     final todoListState = ref.watch(todoListStateProvider);
     final todoSortTypeState = ref.watch(todoSortTypeNotifierProvider);
     final todoUseCase = ref.watch(todoUseCaseProvider);
+    final authUseCase = ref.watch(authUseCaseProvider);
 
     Future<void> updateSortOrder({required List<TodoEntity> todoList}) async {
       await execute(
@@ -44,6 +46,10 @@ class TodoListPage extends ConsumerWidget with PageMixin {
       );
     }
 
+    Future<void> signOut() async {
+      await authUseCase.signOut();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.todoListPageAppBarTitle),
@@ -53,6 +59,17 @@ class TodoListPage extends ConsumerWidget with PageMixin {
             onPressed: () => TodoSortBottomSheet.show(context: context),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: Text(l10n.signOut),
+              onTap: signOut,
+            ),
+          ],
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
